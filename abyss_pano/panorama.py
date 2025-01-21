@@ -1,20 +1,26 @@
 import rclpy
 from rclpy.node import Node
+from sensor_msgs.msg import Image
+from cv_bridge import CvBridge
+import cv2
 
-class MyNode(Node):
+class Panorama(Node):
 
     def __init__(self):
-        super().__init__("py_test")
-        self.get_logger().info("Hello ROS2 Python")
-        self.create_timer(0.5, self.timer_callback)
+        super().__init__("pano_node")
+        self.get_logger().info("Hello Abyss Solutions")
+        self.subscriber = self.create_subscription(Image,
+                                                   '/platypus/camera_2/dec/manual_white_balance',
+                                                   self.image_callback,
+                                                   10)
 
-    def timer_callback(self):
-        self.get_logger().info("Hello")
+    def image_callback(self, msg):
+        self.get_logger().info("Image received from camera 2")
 
 
 def main(args=None):
     rclpy.init(args=args)
-    node = MyNode()
+    node = Panorama()
     rclpy.spin(node)
     rclpy.shutdown()
 
