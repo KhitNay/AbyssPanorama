@@ -8,7 +8,6 @@ from message_filters import Subscriber, ApproximateTimeSynchronizer
 class Panorama(Node):
     def __init__(self):
         super().__init__("pano_node")
-        self.get_logger().info("Please work")
         self.sub1 = Subscriber(self, Image, '/platypus/camera_1/dec/manual_white_balance')
         self.sub2 = Subscriber(self, Image, '/platypus/camera_2/dec/manual_white_balance')
         self.sub3 = Subscriber(self, Image, '/platypus/camera_3/dec/manual_white_balance')
